@@ -303,6 +303,15 @@ if ( typeof Function.prototype.bind != 'function' ) {
   };
 
   /**
+   * Start timer from a pretty time
+   *
+   */
+  Tock.prototype.startFromPrettyTime = function(time) {
+    var start_time = this.timeToMS(this.parsePrettyTime(time).time);
+    this.start(start_time);
+  };
+
+  /**
    * Start timer from a UTC timestamp
    *
    */

@@ -77,7 +77,7 @@
                 interval: 250,
                 callback: function () {
                     console.log(countdown2.lap() / 1000);
-                    $('#countdown_clock2').val(timer.msToTime(countdown2.lap()));
+                    $('#countdown_clock2').val(countdown2.getPrettyTime());
                 },
                 complete: function () {
                     console.log('end');
@@ -86,11 +86,7 @@
             });
 
             $('#startCountdown2').on('click', function () {
-                countdown2.start(
-                    countdown2.timeToMS(
-                        countdown2.parsePrettyTime($('#countdown_clock2').val()).time
-                    )
-                );
+                countdown2.startFromPrettyTime($('#countdown_clock2').val());
             });
 
             $('#pauseCountdown2').on('click', function () {

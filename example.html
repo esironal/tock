@@ -56,7 +56,7 @@
             });
 
             $('#startCountdown').on('click', function () {
-                countdown.start($('#countdown_clock').val());
+                countdown.start(countdown.timeToMS(countdown.parsePrettyTime($('#countdown_clock').val()).time));
             });
 
             $('#pauseCountdown').on('click', function () {
@@ -105,7 +105,7 @@
             <button id="stopCountdown">Stop</button> 
             <button id="pauseCountdown">Pause</button> 
             <button id="resetCountdown">Reset</button> 
-            <input id="countdown_clock" placeholder="00:00" value="00:02">
+            <input id="countdown_clock" placeholder="5m30s" value="5m30s">
         </p>
     </section>
 </body>

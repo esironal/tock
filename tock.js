@@ -256,6 +256,53 @@ if ( typeof Function.prototype.bind != 'function' ) {
   };
 
   /**
+  * Pad a single digit by prepending it with a single zero
+  *
+  */
+  Tock.prototype.pad = function(num) {
+      return num.toString().length > 1 ? num.toString() : '0' + num;
+  };
+
+  /**
+   * Convert a "pretty" time string into an object
+   *
+   * Possible inputs:
+   * 2h
+   * 2h10m
+   * 2h10m30s
+   * 10m
+   * 10m30s
+   * 30s
+   *
+   * An empty input defaults to '0h0m'
+   *
+   */
+  Tock.prototype.parsePrettyTime = function(time) {
+      if (!time || typeof time !== 'string') {
+          time = '0h0m';
+      }
+
+      var format = /(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?/i,
+      match = time.replace(/\s/g, '').match(format),
+      hours = parseInt( (match[1] || 0), 10 ),
+      minutes = parseInt( (match[2] || 0), 10 ),
+      seconds = parseInt( (match[3] || 0), 10 ),
+      delta = (hours * 60 * 60 * 1000) + (minutes * 60 * 1000) + (seconds * 1000),
+      deltaSeconds = delta / 1000;
+
+      var timeString = this.pad(hours) + ':' + this.pad(minutes) + ':' + this.pad(seconds);
+
+      return {
+          time: timeString,
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+          delta:  delta,
+          deltaSeconds: deltaSeconds
+      };
+  };
+
+  /**
    * Convert a time string to milliseconds
    *
    * Possible inputs:

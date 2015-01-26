@@ -71,6 +71,40 @@
                 countdown.stop();
                 $('#countdown_clock').val('00:02');
             });
+
+            var countdown2 = Tock({
+                countdown: true,
+                interval: 250,
+                callback: function () {
+                    console.log(countdown2.lap() / 1000);
+                    $('#countdown_clock2').val(timer.msToTime(countdown2.lap()));
+                },
+                complete: function () {
+                    console.log('end');
+                    alert("Time's up!");
+                }
+            });
+
+            $('#startCountdown2').on('click', function () {
+                countdown2.start(
+                    countdown2.timeToMS(
+                        countdown2.parsePrettyTime($('#countdown_clock2').val()).time
+                    )
+                );
+            });
+
+            $('#pauseCountdown2').on('click', function () {
+                countdown2.pause();
+            });
+
+            $('#stopCountdown2').on('click', function () {
+                countdown2.stop();
+            });
+
+            $('#resetCountdown2').on('click', function () {
+                countdown2.stop();
+                $('#countdown_clock2').val('5m30s');
+            });
         }
     </script>
 </head>
@@ -105,7 +139,18 @@
             <button id="stopCountdown">Stop</button> 
             <button id="pauseCountdown">Pause</button> 
             <button id="resetCountdown">Reset</button> 
-            <input id="countdown_clock" placeholder="5m30s" value="5m30s">
+            <input id="countdown_clock" placeholder="00:00" value="00:02">
+        </p>
+    </section>
+
+    <section>
+        <h2>Countdown via "Pretty Time"</h2>
+        <p>
+            <button id="startCountdown2">Start</button> 
+            <button id="stopCountdown2">Stop</button> 
+            <button id="pauseCountdown2">Pause</button> 
+            <button id="resetCountdown2">Reset</button> 
+            <input id="countdown_clock2" placeholder="5m30s" value="5m30s">
         </p>
     </section>
 </body>

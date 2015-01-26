@@ -303,6 +303,38 @@ if ( typeof Function.prototype.bind != 'function' ) {
   };
 
   /**
+   * Start timer from a UTC timestamp
+   *
+   */
+  Tock.prototype.startFromTimestamp = function(timestamp) {
+    var now_milliseconds = new Date().getTime();
+    var tick_start_time = now_milliseconds - timestamp;
+    this.start(tick_start_time);
+  };
+
+  /**
+   * Various helper methods
+   */
+  Tock.prototype.getS = function() {
+    var ms = this.lap();
+    return Math.floor((ms / 1000) % 60);
+  };
+
+  Tock.prototype.getM = function() {
+    var ms = this.lap();
+    return Math.floor((ms / (60 * 1000)) % 60);
+  };
+
+  Tock.prototype.secondsElapsed = function() {
+    var ms = this.lap();
+    return Math.round(ms / 1000);
+  };
+
+  Tock.prototype.getPrettyTime = function() {
+    return this.getM() + 'm' + this.getS() + 's';
+  };
+
+  /**
    * Convert a time string to milliseconds
    *
    * Possible inputs:
